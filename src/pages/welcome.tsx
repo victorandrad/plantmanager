@@ -1,39 +1,56 @@
-import React, { useState } from 'react';
-import { SafeAreaView, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react';
+import { SafeAreaView, Text, Image, TouchableOpacity, StyleSheet, Dimensions, View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
 import wateringImg from '../assets/watering.png';
 import { Button } from '../components/Button';
 
 import colors from '../styles/colors';
+import fonts from '../styles/fonts';
+import { useNavigation } from '@react-navigation/core';
 
 export function Welcome(){
-    const [visible, setVisible] = useState(false);
+    const navigation = useNavigation();
 
-    function handleVisible(){
-        setVisible(true);
+    function handleStart(){
+        navigation.navigate('UserIdentification')
     }
 
     return(
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>
-                Gerencie {'\n'}
-                 suas plantas {'\n'}
-                 de forma fácil
-            </Text>
+            <View style={styles.wrapper}>
+                <Text style={styles.title}>
+                    Gerencie {'\n'}
+                    suas plantas de {'\n'}
+                    forma fácil
+                </Text>
 
-            
-            <Image style={styles.image} source={wateringImg} />
-            
+                
+                <Image 
+                    style={styles.image} 
+                    source={wateringImg} 
+                    resizeMode="contain"
+                />
+                
 
-            <Text style={styles.subtitle}>
-                Não esqueça mais de regar suas plantas. 
-                Nós cuidamos de lembrar você sempre que precisar.
-            </Text>
+                <Text style={styles.subtitle}>
+                    Não esqueça mais de regar suas plantas. 
+                    Nós cuidamos de lembrar você sempre que precisar.
+                </Text>
 
-            <Button title='>' />
-            {/* <Button title='Mostrar imagem' onPress={handleVisible}/> */}
-            {/* <Button title='Ocultar imagem' onPress={handleVisible}/> */}
-
+                <TouchableOpacity 
+                    style={styles.button} 
+                    activeOpacity={0.7}
+                    onPress={handleStart}
+                >
+                
+                    <Feather 
+                        name='chevron-right'
+                        style={styles.buttonIcon}
+                    />
+                
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     );
 }
@@ -41,15 +58,22 @@ export function Welcome(){
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        
+    },
+    wrapper: {
+        flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-around',
+        paddingHorizontal: 20
     },
     title: {
         fontSize: 32,
         fontWeight: 'bold',
         textAlign: 'center',
         color: colors.heading,
-        marginTop: 38
+        marginTop: 28,
+        fontFamily: fonts.heading,
+        lineHeight: 34
     },
     subtitle: {
         textAlign: 'center',
@@ -64,14 +88,13 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginBottom: 10,
         height: 56,
-        paddingHorizontal: 10
+        width: 56
     },
     image: {
-        width: 292,
-        height: 284
+        height: Dimensions.get('window').width * 0.7
     },
-    buttonText: {
-         color: colors.white,
-         fontSize: 24
-    }
+    buttonIcon: {
+        color: colors.white,
+        fontSize: 32
+   }
 })
