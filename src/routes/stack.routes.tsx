@@ -6,6 +6,7 @@ import fonts from '../styles/fonts';
 import { Welcome } from '../pages/welcome';
 import { UserIdentification } from '../pages/userIdentification';
 import { Confirmation } from '../pages/confirmation';
+import { PlantSelect } from '../pages/plantSelect';
 
 const stackRoutes = createStackNavigator();
 
@@ -31,6 +32,11 @@ const AppRoutes: React.FC = () => (
         <stackRoutes.Screen
             name='Confirmation'
             component={Confirmation}
+        />
+
+        <stackRoutes.Screen
+            name='PlantSelect'
+            component={PlantSelect}
         />
     </stackRoutes.Navigator>
 );
