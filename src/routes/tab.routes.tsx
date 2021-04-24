@@ -11,6 +11,7 @@ import { PlantSelect } from '../pages/plantSelect';
 import { PlantSave } from '../pages/plantSave';
 import { MyPlants } from '../pages/myPlants';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Platform } from 'react-native';
 
 const AppTab = createBottomTabNavigator();
 
@@ -19,10 +20,10 @@ const AuthRoutes = () => (
         tabBarOptions={{
             activeTintColor: colors.green,
             inactiveTintColor: colors.heading,
-            labelPosition: 'below-icon',
+            labelPosition: 'beside-icon',
             style: {
-                paddingVertical: 20,
-                height: 88
+                paddingVertical: Platform.OS == 'ios' ? 20 : 0,
+                height: Platform.OS == 'ios' ? 88 : 60
             }
         }}
     >

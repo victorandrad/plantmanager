@@ -98,8 +98,9 @@ export function PlantSelect() {
         fetchPlants();
     }, []);
 
-    if(loading)
+    if(loading){
         return <Load />
+    }
 
     return (
         <View style={styles.container}>
