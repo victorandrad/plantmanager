@@ -1,11 +1,13 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, TextInput, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Text, TextInput, KeyboardAvoidingView, Platform, Keyboard, Alert } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Button } from '../components/Button';
+import AyncStorage from '@react-native-async-storage/async-storage'
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function UserIdentification() {
     const [isFocused, setIsFocused] = useState(false);
@@ -27,9 +29,23 @@ export function UserIdentification() {
         setName(value);
     }
 
-    function handleSubmit() {
-        if (isFilled) {
-            navigation.navigate('Confirmation')
+    async function handleSubmit() {
+        if (!name) {
+            return Alert.alert('Oi', 'Me diz como chamar você 😢');
+        }
+
+        try{
+            await AsyncStorage.setItem('@plantmanager:user', name);
+            navigation.navigate('Confirmation', {
+                title: 'Prontinho',
+                subtitle: 'Agora vamos começar a cuidar das suas plantinhas com muito cuidado.',
+                buttonTitle: 'Começar',
+                icon: 'smile',
+                nextScreen: 'PlantSelect'
+                
+            });
+        } catch {
+            Alert.alert('Aviso', 'Não foi possível salvar o seu nome. 😢');
         }
     }
 
